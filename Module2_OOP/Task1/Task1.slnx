@@ -1,0 +1,10 @@
+<Solution>
+  <Project Path="../Task2/Task2.csproj" />
+  <Project Path="../Task3/Task3.csproj" />
+  <Project Path="../Task4/Task4.csproj" />
+  <Project Path="../Task5/Task5.csproj" />
+  <Project Path="../TaskVariant3/TaskVariant3.csproj" Id="b97bf7fd-efc3-48ed-934f-ff2b1daefba7" />
+  <Project Path="../TaskVariant3z2/TaskVariant3z2.csproj" Id="9f5f51eb-6031-4b3f-8de4-3b30be82fac0" />
+  <Project Path="../TaskVariant3z3/TaskVariant3z3.csproj" Id="fd7495e4-aedf-405b-924e-1829f3eaa427" />
+  <Project Path="Task1.csproj" />
+</Solution>
