@@ -1,0 +1,47 @@
+﻿<Window x:Class="Task3.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Task3"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0" Margin="0,0,0,10">
+            <Button x:Name="btnAdd" Content="Добавить" DockPanel.Dock="Right"
+        Padding="12,3" Margin="10,0,0,0" Click="btnAdd_Click"/>
+            <TextBox x:Name="txtNewTask" FontSize="14" KeyDown="txtNewTask_KeyDown"/>
+        </DockPanel>
+
+        <ListBox x:Name="listTasks" Grid.Row="1" FontSize="14">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <CheckBox IsChecked="{Binding IsDone, Mode=TwoWay}" Margin="2">
+                        <TextBlock Text="{Binding Title}">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsDone}" Value="True">
+                                            <Setter Property="TextDecorations" Value="Strikethrough"/>
+                                            <Setter Property="Foreground" Value="Gray"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </CheckBox>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Button x:Name="btnDelete" Grid.Row="2" Content="Удалить выбранную"
+        HorizontalAlignment="Left" Padding="12,3" Margin="0,10,0,0"
+        Click="btnDelete_Click"/>
+    </Grid>
+</Window>
