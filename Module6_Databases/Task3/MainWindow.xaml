@@ -1,0 +1,41 @@
+﻿<Window x:Class="Task3.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Task3"
+        mc:Ignorable="d"
+        Title="Библиотека" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBlock Text="Поиск (название или автор):" VerticalAlignment="Center" Margin="0,0,5,0"/>
+            <TextBox x:Name="txtSearch" Width="250" Margin="0,0,5,0"/>
+            <Button Content="Найти" Click="Search_Click" Width="80" Margin="0,0,5,0"/>
+            <Button Content="Показать все" Click="ShowAll_Click" Width="100"/>
+        </StackPanel>
+
+        <DataGrid x:Name="BooksGrid" Grid.Row="1" IsReadOnly="True"
+                  AutoGenerateColumns="False" SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название" Binding="{Binding Title}" Width="*"/>
+                <DataGridTextColumn Header="Автор" Binding="{Binding Author}" Width="180"/>
+                <DataGridTextColumn Header="Год" Binding="{Binding Year}" Width="60"/>
+                <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="80"/>
+                <DataGridTextColumn Header="Кто взял" Binding="{Binding RenterName}" Width="140"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,0">
+            <TextBlock Text="Имя читателя:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+            <TextBox x:Name="txtRenter" Width="200" Margin="0,0,10,0"/>
+            <Button Content="Арендовать" Click="Rent_Click" Width="100" Margin="0,0,5,0"/>
+            <Button Content="Вернуть" Click="Return_Click" Width="100"/>
+        </StackPanel>
+    </Grid>
+</Window>
