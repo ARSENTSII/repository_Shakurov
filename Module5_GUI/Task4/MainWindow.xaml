@@ -1,4 +1,5 @@
-﻿<Window x:Class="Task4.MainWindow"
+﻿<!-- Окно просмотра изображений. x:Class связывает разметку с классом MainWindow в C# (namespace Task4) -->
+<Window x:Class="Task4.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,37 +7,63 @@
         xmlns:local="clr-namespace:Task4"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
+    <!-- Главный контейнер: сетка из двух строк -->
     <Grid>
+        <!-- Строка 0 (Auto): панель управления по высоте содержимого.
+             Строка 1 (*): область просмотра занимает всё оставшееся место.
+             Нужная строка выбирается атрибутом Grid.Row (нумерация с нуля) -->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <!-- Панель управления в строке 0.
+             StackPanel выстраивает элементы в ряд слева направо (Orientation="Horizontal") -->
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
+            <!-- Кнопка выбора файла. Click связывает нажатие с методом btnOpen_Click в C# -->
             <Button x:Name="btnOpen" Content="Открыть изображение" Padding="12,3"
         Click="btnOpen_Click"/>
 
+            <!-- Подпись перед ползунком (Margin слева 20 отделяет её от кнопки) -->
             <TextBlock Text="Масштаб:" VerticalAlignment="Center" Margin="20,0,5,0"/>
 
+            <!-- Ползунок масштаба: от 0.1 (10%) до 5 (500%), стартовое значение 1 (100%).
+                 ValueChanged вызывает метод zoomSlider_ValueChanged при каждом движении -->
             <Slider x:Name="zoomSlider" Minimum="0.1" Maximum="5" Value="1"
         Width="200" VerticalAlignment="Center"
         ValueChanged="zoomSlider_ValueChanged"/>
 
+            <!-- Подпись с текущим масштабом в процентах; текст обновляется из C#.
+                 Фиксированная ширина (50) не даёт соседней кнопке «прыгать» при смене текста -->
             <TextBlock x:Name="txtZoom" Text="100%" Width="50"
                    VerticalAlignment="Center" Margin="5,0,0,0"/>
 
+            <!-- Кнопка возврата к масштабу 100% (метод btnReset_Click) -->
             <Button x:Name="btnReset" Content="Сбросить" Padding="12,3"
         Click="btnReset_Click"/>
         </StackPanel>
 
+        <!-- Область просмотра в строке 1: серая рамка вокруг прокручиваемой области.
+             Margin: слева 10, сверху 0, справа 10, снизу 10 -->
         <Border Grid.Row="1" BorderBrush="Gray" BorderThickness="1" Margin="10,0,10,10">
+            <!-- ScrollViewer добавляет полосы прокрутки, когда увеличенная картинка не помещается.
+                 Auto — полоса появляется только при необходимости -->
             <ScrollViewer HorizontalScrollBarVisibility="Auto"
                   VerticalScrollBarVisibility="Auto"
                   Background="WhiteSmoke">
+                <!-- Элемент, показывающий картинку (Source задаётся из C#).
+                     Stretch="None" — картинка в натуральном размере, масштаб задаём сами.
+                     HorizontalAlignment и VerticalAlignment прижимают её к левому верхнему углу.
+                     BitmapScalingMode="HighQuality" — более гладкое масштабирование -->
                 <Image x:Name="imgView" Stretch="None"
                HorizontalAlignment="Left" VerticalAlignment="Top"
                RenderOptions.BitmapScalingMode="HighQuality">
+                    <!-- LayoutTransform масштабирует картинку и меняет занимаемое ею место,
+                         поэтому полосы прокрутки работают правильно (у RenderTransform было бы не так) -->
                     <Image.LayoutTransform>
+                        <!-- ScaleX и ScaleY равны 1 (100%); ползунок меняет их из C#.
+                             x:Name даёт имя scale, по которому к нему обращается код -->
                         <ScaleTransform x:Name="scale" ScaleX="1" ScaleY="1"/>
                     </Image.LayoutTransform>
                 </Image>

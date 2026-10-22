@@ -1,4 +1,5 @@
-﻿<Window x:Class="Task1.MainWindow"
+﻿<!-- Окно приложения. x:Class связывает разметку с классом MainWindow в C# (namespace Task1) -->
+<Window x:Class="Task1.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,16 +7,39 @@
         xmlns:local="clr-namespace:Task1"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
+    <!-- Главный контейнер: сетка, в которую положены все элементы окна -->
     <Grid>
+        <!-- Две строки сетки: высота делится в пропорции 26 к 5.
+             У элементов ниже не указан Grid.Row, поэтому все они лежат в первой строке -->
         <Grid.RowDefinitions>
             <RowDefinition Height="26*"/>
             <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
+
+        <!-- Кнопка «Нарисовать линию».
+             Margin задаёт отступы: слева 228, сверху 61, справа 0, снизу 0.
+             Click связывает нажатие с методом Button_Click в C# -->
         <Button Content="Нарисовать линию" HorizontalAlignment="Left" Margin="228,61,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+
+        <!-- Кнопка «Нарисовать круг», выровнена по центру окна.
+             RenderTransformOrigin появился при перетаскивании в конструкторе и ни на что не влияет.
+             Click связывает нажатие с методом Button_Click_1 -->
         <Button Content="Нарисовать круг" HorizontalAlignment="Center" Margin="0,61,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.02,0.533" Click="Button_Click_1"/>
+
+        <!-- Кнопка «Нарисовать квадрат» (метод Button_Click_2) -->
         <Button Content="Нарисовать квадрат" HorizontalAlignment="Left" Margin="469,61,0,0" VerticalAlignment="Top" Click="Button_Click_2"/>
+
+        <!-- Кнопка «Очистить холст», по центру у верхнего края (метод Button_Click_3) -->
         <Button Content="Очистить холст" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Click="Button_Click_3"/>
+
+        <!-- Рамка вокруг холста: у самого Canvas нет собственной рамки.
+             BorderThickness — толщина рамки, Margin — отступы от краёв окна
+             (слева 159, сверху 108 под кнопками, справа 159, снизу 10) -->
         <Border BorderBrush="Black" BorderThickness="2" Margin="159,108,159,10">
+            <!-- Холст для фигур. x:Name даёт имя, по которому к нему обращается C#-код.
+                 Background="White" — белый фон (без него холст прозрачный).
+                 ClipToBounds="True" — обрезает всё, что выходит за границы холста -->
             <Canvas x:Name="canvas" Background="White" ClipToBounds="True"/>
         </Border>
     </Grid>

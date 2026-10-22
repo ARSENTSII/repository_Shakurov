@@ -1,4 +1,5 @@
-﻿<Window x:Class="Task2.MainWindow"
+﻿<!-- Окно текстового редактора. x:Class связывает разметку с классом MainWindow в C# (namespace Task2) -->
+<Window x:Class="Task2.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,16 +7,34 @@
         xmlns:local="clr-namespace:Task2"
         mc:Ignorable="d"
         Title="Текстовый редактор" Height="450" Width="800">
+
+    <!-- Корневой контейнер (в нём один DockPanel, поэтому он занимает всё окно) -->
     <Grid>
+        <!-- DockPanel прижимает элементы к краям окна.
+             Последний элемент по умолчанию заполняет всё оставшееся место -->
         <DockPanel>
+
+            <!-- Строка меню, прижатая к верхнему краю -->
             <Menu DockPanel.Dock="Top">
+                <!-- Вкладка верхнего уровня «Файл» -->
                 <MenuItem Header="Файл">
+                    <!-- Пункты выпадающего списка.
+                         Click связывает щелчок с методом в C# (Open_Click, SaveAs_Click, Exit_Click) -->
                     <MenuItem Header="Открыть" Click="Open_Click"/>
                     <MenuItem Header="Сохранить как" Click="SaveAs_Click"/>
+                    <!-- Горизонтальная линия между группами пунктов -->
                     <Separator/>
                     <MenuItem Header="Выход" Click="Exit_Click"/>
                 </MenuItem>
             </Menu>
+
+            <!-- Текстовое поле: последний элемент DockPanel, поэтому растягивается на всё окно под меню.
+                 x:Name даёт имя, по которому к полю обращается C#-код (textBox1.Text).
+                 AcceptsReturn — Enter переводит строку (многострочный ввод).
+                 AcceptsTab — клавиша Tab вставляет табуляцию, а не переключает фокус.
+                 TextWrapping — длинные строки переносятся по ширине окна.
+                 VerticalScrollBarVisibility — вертикальная прокрутка появляется только при необходимости.
+                 FontSize — размер шрифта -->
             <TextBox x:Name="textBox1"
                      AcceptsReturn="True"
                      AcceptsTab="True"

@@ -1,4 +1,5 @@
-﻿<Window x:Class="Task5.MainWindow"
+﻿<!-- Окно калькулятора. x:Class связывает разметку с классом MainWindow в C# (namespace Task5) -->
+<Window x:Class="Task5.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,50 +7,76 @@
         xmlns:local="clr-namespace:Task5"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
+    <!-- Главный контейнер с отступом 10 пикселей от краёв окна -->
     <Grid Margin="10">
+        <!-- Три строки сетки: Auto — по высоте содержимого, * — всё оставшееся место.
+             Нужная строка выбирается атрибутом Grid.Row (нумерация с нуля) -->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <!-- строка 0: подпись с первым числом и знаком -->
             <RowDefinition Height="Auto"/>
+            <!-- строка 1: поле ввода и результата -->
             <RowDefinition Height="*"/>
+            <!-- строка 2: кнопки (растягиваются вместе с окном) -->
         </Grid.RowDefinitions>
 
-        <!-- Подпись: первое число и знак операции -->
+        <!-- Подпись: первое число и знак операции (например, «5+»).
+             Текст задаётся из C# (lblExpr.Text). Серый цвет, выравнивание вправо,
+             фиксированная высота (22), чтобы окно не «прыгало», пока подпись пуста -->
         <TextBlock x:Name="lblExpr" Grid.Row="0" FontSize="14"
                Foreground="Gray" TextAlignment="Right" Height="22"/>
 
-        <!-- Поле ввода и результата -->
+        <!-- Поле ввода и результата.
+             IsReadOnly="True" запрещает печатать с клавиатуры: числа вводятся только кнопками,
+             поэтому нельзя ввести буквы и сломать расчёт.
+             Margin снизу (10) отделяет поле от кнопок -->
         <TextBox x:Name="txtDisplay" Grid.Row="1" FontSize="30"
              TextAlignment="Right" IsReadOnly="True" Margin="0,0,0,10"/>
 
-        <!-- Кнопки -->
+        <!-- Сетка кнопок: UniformGrid раскладывает элементы по порядку записи
+             в 4 столбца, все ячейки одинакового размера -->
         <UniformGrid Grid.Row="2" Columns="4">
+            <!-- Стиль для всех кнопок внутри этой сетки:
+                 задаётся один раз, а не у каждой кнопки отдельно -->
             <UniformGrid.Resources>
                 <Style TargetType="Button">
                     <Setter Property="FontSize" Value="20"/>
+                    <!-- размер шрифта -->
                     <Setter Property="Margin" Value="3"/>
+                    <!-- отступ между кнопками -->
                 </Style>
             </UniformGrid.Resources>
 
+            <!-- Ряд 1. У кнопок C, ← и ± пока нет Click, поэтому они ничего не делают.
+                 Деление подключено к общему обработчику операций -->
             <Button Content="C"/>
             <Button Content="←"/>
             <Button Content="±"/>
             <Button Content="/" Click="Operation_Click"/>
 
+            <!-- Ряд 2. Все цифры используют один общий обработчик Digit_Click:
+                 в C# цифра берётся из надписи (Content) нажатой кнопки.
+                 «*» — умножение, обработчик Operation_Click общий для всех операций -->
             <Button Content="7" Click="Digit_Click"/>
             <Button Content="8" Click="Digit_Click"/>
             <Button Content="9" Click="Digit_Click"/>
             <Button Content="*" Click="Operation_Click"/>
 
+            <!-- Ряд 3 -->
             <Button Content="4" Click="Digit_Click"/>
             <Button Content="5" Click="Digit_Click"/>
             <Button Content="6" Click="Digit_Click"/>
             <Button Content="-" Click="Operation_Click"/>
 
+            <!-- Ряд 4 -->
             <Button Content="1" Click="Digit_Click"/>
             <Button Content="2" Click="Digit_Click"/>
             <Button Content="3" Click="Digit_Click"/>
             <Button Content="+" Click="Operation_Click"/>
 
+            <!-- Ряд 5: ноль, запятая (свой обработчик Comma_Click) и «равно» (Equals_Click).
+                 Четвёртая ячейка ряда остаётся пустой -->
             <Button Content="0" Click="Digit_Click"/>
             <Button Content="," Click="Comma_Click"/>
             <Button Content="=" Click="Equals_Click"/>
