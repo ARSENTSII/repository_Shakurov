@@ -104,5 +104,44 @@ namespace Task1
 
             return result;
         }
+
+        public List<Student> SortByName()
+        {
+            List<Student> copy = new List<Student>(students);
+            copy.Sort((a, b) => a.Name.CompareTo(b.Name));
+            return copy;
+        }
+
+        public List<Student> SortByAvarageGrade()
+        {
+            List<Student> copy = new List<Student>(students);
+            copy.Sort((b, a) => b.AverageGrade.CompareTo(a.AverageGrade));
+            return copy;
+        }
+
+        public List<Student> SortByCourse()
+        {
+            List<Student> copy = new List<Student>(students);
+            copy.Sort((a, b) => a.Course.CompareTo(b.Course));
+            return copy;
+        }
+
+        public void SetAll(List<Student> loadedStudents)
+        {
+            students = loadedStudents;
+        }
+
+        public void UpdateNextId()
+        {
+            int maxId = 0;
+
+            foreach (Student s in students)
+            {
+                if (s.Id > maxId)
+                {
+                    maxId = s.Id;
+                }
+            }
+        }
     }
 }

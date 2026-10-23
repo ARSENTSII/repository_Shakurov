@@ -1,0 +1,55 @@
+﻿<Window x:Class="Task2.Views.ReportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Task2.Views"
+        mc:Ignorable="d"
+        Title="ReportWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="txtSummary" Grid.Row="0" FontWeight="Bold" Margin="0,0,0,10"/>
+
+        <TabControl Grid.Row="1">
+            <TabItem Header="По проектам">
+                <DataGrid x:Name="dgProjectReport" AutoGenerateColumns="False"
+                          IsReadOnly="True" CanUserAddRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Проект" Binding="{Binding ProjectName}" Width="*"/>
+                        <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="110"/>
+                        <DataGridTextColumn Header="Всего" Binding="{Binding TotalTasks}" Width="55"/>
+                        <DataGridTextColumn Header="Новые" Binding="{Binding NewTasks}" Width="55"/>
+                        <DataGridTextColumn Header="В работе" Binding="{Binding InProgressTasks}" Width="70"/>
+                        <DataGridTextColumn Header="Выполнено" Binding="{Binding DoneTasks}" Width="80"/>
+                        <DataGridTextColumn Header="Просрочено" Binding="{Binding OverdueTasks}" Width="85"/>
+                        <DataGridTextColumn Header="Прогресс, %" Binding="{Binding ProgressPercent}" Width="90"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+
+            <TabItem Header="По сотрудникам">
+                <DataGrid x:Name="dgEmployeeReport" AutoGenerateColumns="False"
+                          IsReadOnly="True" CanUserAddRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Сотрудник" Binding="{Binding EmployeeName}" Width="*"/>
+                        <DataGridTextColumn Header="Должность" Binding="{Binding Position}" Width="*"/>
+                        <DataGridTextColumn Header="Всего задач" Binding="{Binding TotalTasks}" Width="90"/>
+                        <DataGridTextColumn Header="Выполнено" Binding="{Binding DoneTasks}" Width="85"/>
+                        <DataGridTextColumn Header="Просрочено" Binding="{Binding OverdueTasks}" Width="90"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+        </TabControl>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button Content="Обновить" Width="100" Margin="0,0,10,0" Click="Refresh_Click"/>
+            <Button Content="Сохранить в CSV" Width="130" Margin="0,0,10,0" Click="SaveCsv_Click"/>
+            <Button Content="Закрыть" Width="100" Click="Close_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using System.Runtime.Intrinsics.X86;
 using Task1;
 
 class Program
@@ -22,6 +23,7 @@ class Program
     static void Main()
     {
         StudentRepository manager = new StudentRepository();
+        StudentFileService fileService = new StudentFileService();
 
         while (true)
         {
@@ -30,7 +32,10 @@ class Program
             Console.WriteLine("2 - Удалить студента");
             Console.WriteLine("3 - Показать всех");
             Console.WriteLine("4 - Редактировать студента");
-            Console.WriteLine("5 - Поиск по имени");
+            Console.WriteLine("5 - Поиск");
+            Console.WriteLine("6 - Сортировка");
+            Console.WriteLine("7 - Сохранить студентов");
+            Console.WriteLine("8 - Загрузить студентов");
             Console.WriteLine("0 - Выход");
 
             string choice = Console.ReadLine();
@@ -179,6 +184,43 @@ class Program
                 {
                     Console.WriteLine("Неверный пункт");
                 }
+            }
+
+            else if (choice == "6")
+            {
+                Console.WriteLine("Сортировать по:");
+                Console.WriteLine("1 - имени");
+                Console.WriteLine("2 - среднему баллу");
+                Console.WriteLine("3 - курсу");
+
+                string sortChoice = Console.ReadLine();
+
+                if (sortChoice == "1")
+                {
+                    PrintList(manager.SortByName());
+                }
+                else if (sortChoice == "2")
+                {
+                    PrintList(manager.SortByAvarageGrade());
+                }
+                else if (sortChoice == "3")
+                {
+                    PrintList(manager.SortByCourse());
+                }
+                else
+                {
+                    Console.WriteLine("Неверный пункт");
+                }
+            }
+
+            else if (choice == "7")
+            {
+                fileService.Save(manager.GetAll());
+            }
+            else if (choice == "8")
+            {
+                manager.SetAll(fileService.Load());
+                Console.WriteLine("Список студентов загружен!");
             }
 
             else
